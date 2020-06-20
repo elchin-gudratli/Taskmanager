@@ -247,7 +247,7 @@
                                 <a href="#Projects" class="has-arrow"><i class="icon-list"></i><span>Projects</span></a>
                                 <ul>
                                     <li><a href="project-add.html">Add Projects</a></li>
-                                    <li><a href="project-list.html">Projects List</a></li>
+                                    <li><a href="/projectslists">Projects List</a></li>
                                     <li><a href="project-grid.html">Projects Grid</a></li>
                                     <li><a href="project-detail.html">Projects Detail</a></li>                                    
                                 </ul>
@@ -255,7 +255,7 @@
                             <li class="active">
                                 <a href="#Clients" class="has-arrow"><i class="icon-user"></i><span>Clients</span></a>
                                 <ul>
-                                    <li><a href="client-add.html">Add Clients</a></li>
+                                    <li><a href="/addUsers">Add Clients</a></li>
                                     <li class="active"><a href="/index">Clients List</a></li>
                                     <li><a href="client-detail.html">Clients Detail</a></li>
                                 </ul>

@@ -2,6 +2,8 @@ package com.taskmanager.taskmanager.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +11,7 @@ import com.taskmanager.taskmanager.entity.Tasks;
 
 import com.taskmanager.taskmanager.repository.TasksRepository;
 
-
+@Transactional
 @Service
 public class TasksServiceImpl {
 	private final TasksRepository tasks_repository;
@@ -23,10 +25,11 @@ public class TasksServiceImpl {
 		
 	}
 
-	
-	public List<Tasks> getTasksList() {
-		List<Tasks> liste = tasks_repository.getTasksList();
+	public List<Object[]> getTasksList() {
+		List<Object[]> liste =  tasks_repository.getTasksList();
 		return liste;
+		
 	}
+	
 	
 }

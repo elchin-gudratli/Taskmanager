@@ -6,5 +6,5 @@ import com.taskmanager.taskmanager.entity.Tasks;
 
 public interface TasksService {
 
-	List<Tasks> getTasksList();
+	List<Object[]> getTasksList();
 }

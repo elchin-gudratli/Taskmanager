@@ -12,13 +12,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @SuppressWarnings("serial")
 @Entity
+@DynamicUpdate
 @Table(name = "users")
 public class Users implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer userid;
 	
@@ -67,6 +70,9 @@ public class Users implements Serializable {
 	
 	@Column(name = "skype_name")
 	private String skype_name;
+
+
+
 
 	public Integer getUserid() {
 		return userid;
