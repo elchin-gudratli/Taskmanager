@@ -7,15 +7,14 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.taskmanager.taskmanager.entity.Projects;
-import com.taskmanager.taskmanager.entity.Users;
-import com.taskmanager.taskmanager.repository.ProjectsRepository;
 import com.taskmanager.taskmanager.service.ProjectsService;
+import com.taskmanager.taskmanager.entity.Projects;
+import com.taskmanager.taskmanager.repository.ProjectsRepository;
 
 @Transactional
 @Service
 public class ProjectsServiceImpl implements ProjectsService{
-
+    
 	private final ProjectsRepository projects_repository;
 	
 

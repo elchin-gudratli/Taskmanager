@@ -9,16 +9,15 @@ public interface UsersService {
 	
 	List<Object[]> getUsersList();
 	
-	Users getById(Integer id);
+	Users getById(Long id);
 	
-	Users getUserDetail(Integer id);
+	Users getUserDetail(Long id);
 
 	Users addUsers(Users users);
-	
-	Boolean delete(Integer id);
+
+	Boolean delete(Long id);
 	
 	void update(Users users);
 	
 	
-
 }

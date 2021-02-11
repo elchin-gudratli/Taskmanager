@@ -17,7 +17,6 @@ public class TaskmanagerApplication {
 	public ModelMapper getModelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
-		//modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		return modelMapper;
 	}
 

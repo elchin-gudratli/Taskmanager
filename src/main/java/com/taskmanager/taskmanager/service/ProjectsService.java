@@ -6,7 +6,7 @@ import com.taskmanager.taskmanager.entity.Projects;
 
 public interface ProjectsService {
 
-	List<Object[]> getProjectsList();
+    List<Object[]> getProjectsList();
 	
 	Projects getProjectsDetail(Integer id);
 	
@@ -17,6 +17,4 @@ public interface ProjectsService {
 	Boolean delete(Integer id);
 	
 	void update(Projects projects);
-
-	
 }

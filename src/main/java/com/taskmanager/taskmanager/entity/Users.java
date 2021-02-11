@@ -1,29 +1,34 @@
 package com.taskmanager.taskmanager.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@SuppressWarnings("serial")
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @DynamicUpdate
 @Table(name = "users")
-public class Users implements Serializable {
+public class Users implements Serializable,UserDetails  {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer userid;
+	private Long id;
 	
 
 	@Column(name = "name")
@@ -31,56 +36,40 @@ public class Users implements Serializable {
 	
 	@Column(name = "surname")
 	private String surname;
+
+	@Column(name = "email")
+	private String email;
 	
-	@Column(name = "user_name")
-	private String user_name;
+    @NotBlank(message="true")
+	@Column(name = "username",unique=true)
+	private String username;
 	
 	
 	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "email")
-	private String email;
-	
-	@Column(name = "status_id")
-	private int status_id;
-	
-	@Column(name = "create_date")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date create_date;
-	
-	@Column(name = "department_id")
-	private int department_id;
-	
-	@Column(name = "color_theme")
-	private String color_theme;
-	
-	@Column(name = "role")
-	private String role;
-	
-	@Column(name = "phone")
-	private String phone;
-	
-	@Column(name = "birthday")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date birthday;
-	
-	@Column(name = "src")
-	private String src;
-	
-	@Column(name = "skype_name")
-	private String skype_name;
+	@ManyToMany
+	@JsonIgnore
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
-
-
-
-	public Integer getUserid() {
-		return userid;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setUserid(Integer userid) {
-		this.userid = userid;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 
 	public String getName() {
 		return name;
@@ -98,12 +87,12 @@ public class Users implements Serializable {
 		this.surname = surname;
 	}
 
-	public String getUser_name() {
-		return user_name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -122,78 +111,35 @@ public class Users implements Serializable {
 		this.email = email;
 	}
 
-	public int getStatus_id() {
-		return status_id;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return getRoles()==null?null:getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
 	}
 
-	public void setStatus_id(int status_id) {
-		this.status_id = status_id;
-	}
 
-	public Date getCreate_date() {
-		return create_date;
-	}
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	public void setCreate_date(Date create_date) {
-		this.create_date = create_date;
-	}
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	public int getDepartment_id() {
-		return department_id;
-	}
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	public void setDepartment_id(int department_id) {
-		this.department_id = department_id;
-	}
-
-	public String getColor_theme() {
-		return color_theme;
-	}
-
-	public void setColor_theme(String color_theme) {
-		this.color_theme = color_theme;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public String getSrc() {
-		return src;
-	}
-
-	public void setSrc(String src) {
-		this.src = src;
-	}
-
-	public String getSkype_name() {
-		return skype_name;
-	}
-
-	public void setSkype_name(String skype_name) {
-		this.skype_name = skype_name;
-	}
-
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true;
+    }
 
 	
 
